@@ -29,9 +29,22 @@
             websocketStatus = err.toString();
         }
 
-        ws.onmessage = (msg) => {
-            Conversation = [...Conversation, msg.data];
-        }
+
+        // websockets are great, until they decide to become blobs.
+        ws.onmessage = async (msg) => {
+            let content;
+
+            if (typeof msg.data === "string") {
+                content = msg.data;
+            } else if (msg.data instanceof Blob) {
+                content = await msg.data.text();
+            } else {
+                console.warn("Unknown WS data type:", msg.data);
+                return;
+            }
+
+            Conversation = [...Conversation, content];
+        };
     }
 
     function sendMessageHandler()
