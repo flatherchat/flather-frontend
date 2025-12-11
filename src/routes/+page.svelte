@@ -2,7 +2,6 @@
 	let userMessage: string = '';
     let userName: string = '';
 
-    let websocketTarget: string = '2.56.246.119:30179';
     let websocketStatus: string = '';
     let ws: WebSocket;
 
@@ -12,7 +11,7 @@
     function initWebsocket()
     {
         websocketStatus = 'Connecting...';
-        ws = new WebSocket(`wss://${websocketTarget}`);
+        ws = new WebSocket(`wss://ws-betaapp.flather.online`);
 
         if (!ws) {
             return
