@@ -12,7 +12,7 @@
     function initWebsocket()
     {
         websocketStatus = 'Connecting...';
-        ws = new WebSocket(`ws://${websocketTarget}`);
+        ws = new WebSocket(`wss://${websocketTarget}`);
 
         if (!ws) {
             return
@@ -44,7 +44,7 @@
     initWebsocket();
 </script>
 
-<p>NOTE: This project is in early beta. Also you will lose the conversation history if you refresh. Good luck, and thank you for testing!</p>
+<p>NOTE: This project is in early beta. Also you will lose the conversation history if you refresh. Good luck, and thank you for testing! - Flather Communications 2025</p>
 <p>{websocketStatus}</p>
 <div>
     {#each Conversation as chat }
