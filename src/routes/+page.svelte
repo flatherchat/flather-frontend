@@ -1,16 +1,31 @@
 <script lang="ts">
+    import '@project/styles/global.css';
+    import { marked } from 'marked'
+
+    marked.setOptions({
+        breaks: true
+    });
+
 	let userMessage: string = '';
     let userName: string = '';
+    let isConnected: boolean = false;
 
     let websocketStatus: string = '';
+    let websocketAttempts: number = 0;
     let ws: WebSocket;
 
-    let Conversation: string[] = [];
+    let Conversation: any[] = [
+    ];
 
     // kill me
     function initWebsocket()
     {
-        websocketStatus = 'Connecting...';
+        if (websocketAttempts >= 20)
+        {
+            websocketStatus = `Maximum attempts reached. Reload your page to try again.`   
+        }
+        websocketStatus = `Connecting... (Attempt ${websocketAttempts}/20)`;
+
         ws = new WebSocket(`wss://ws-betaapp.flather.online`);
 
         if (!ws) {
@@ -18,11 +33,15 @@
         }
 
         ws.onclose = () => {
-            websocketStatus = "Connection Terminated. I'm sorry to interrupt you Elizabeth, if you still even remember that name. But I'm afraid you've been misinformed. You are not here to receive a gift, nor have you been called here by the individual you assume. Although you have indeed been called."
+            isConnected = false;
+            websocketAttempts++;
+            initWebsocket()
         };
 
         ws.onopen = () => {
             websocketStatus = 'Connected successfuly!'
+            websocketAttempts = 0;
+            isConnected = true;
         };
 
         ws.onerror = (err) => {
@@ -43,26 +62,43 @@
                 return;
             }
 
+            content = JSON.parse(content)
             Conversation = [...Conversation, content];
+            console.log(content);
         };
     }
 
     function sendMessageHandler()
     {
-        ws.send(`${userName}: ${userMessage}`)
+        if (isConnected)
+        {
+        const jsonSend = JSON.stringify(
+            {
+                user: userName,
+                content: userMessage,
+            }
+        )
+
+        ws.send(jsonSend)
         userMessage = '';
+        }
     }
 
     initWebsocket();
 </script>
 
-<p>NOTE: This project is in early beta. Also you will lose the conversation history if you refresh. Good luck, and thank you for testing! - Flather Communications 2025</p>
 <p>{websocketStatus}</p>
-<div>
-    {#each Conversation as chat }
-        {chat}<br>
+<div id="chat-container">
+    {#each Conversation as chat}
+        <b id='username'>{chat.user}</b>{@html marked(chat.content)}
     {/each}
 </div>
-<input bind:value={userName} placeholder='ur username here ig' type='text' required><br>
-<input bind:value={userMessage} placeholder='Send a message...' type='text' required><br>
-<button id='sendAction' on:click={sendMessageHandler}>Send</button>
+
+<input bind:value={userName} placeholder='ur username here ig' type='text' required><br><br>
+<textarea bind:value={userMessage} placeholder="Enter markdown here" required></textarea><br>
+<button id='pad25' on:click={sendMessageHandler}>Send</button><br>
+{@html marked(userMessage)}
+
+<br><br><br>
+You are currently using an experimental service. Please note that we are not responsbile for any data loss, data leakage as this system is meant for beta use.<br>
+Thank you for testing and improving our services! - © 2025 Flather Communications. All rights reserved.<br>

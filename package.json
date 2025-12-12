@@ -21,6 +21,8 @@
 		"vite": "^7.2.2"
 	},
 	"dependencies": {
-		"@sveltejs/adapter-vercel": "^6.2.0"
+		"@sveltejs/adapter-vercel": "^6.2.0",
+		"dayjs": "^1.11.19",
+		"marked": "^17.0.1"
 	}
 }
