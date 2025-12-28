@@ -13,6 +13,8 @@
 		"moduleResolution": "bundler",
 		"types": ["node"],
 		"paths": {
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"],
       		"@project/*": ["./src/*"]
     	}
 	}

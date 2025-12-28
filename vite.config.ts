@@ -8,5 +8,8 @@ export default defineConfig({
     alias: {
       '@project': path.resolve('./src')
     }
-  	}
+  },
+  optimizeDeps: {
+		exclude: ['svelte-slate']
+	}
 });

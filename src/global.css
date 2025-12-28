@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+:root {
+	--outline-color: hsl(0, 0%, 75%);
+}
+
+body {
+	font-family: 'Plus Jakarta Sans', 'Inter';
+	margin: 2rem;
+}
+
+input {
+	border: 1px solid var(--outline-color);
+	padding: 0.7rem;
+}
+
+#text-input {
+	outline: none;
+	border-radius: 6px;
+	border: 1px solid var(--outline-color);
+	padding: 8px;
+	transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+input, button {
+	font-family: 'Plus Jakarta Sans';
+	border-radius: 0.5rem;
+	border: 1px solid var(--outline-color);
+	padding: 0.7rem;
+	margin: 0.15rem;
+	margin-left: 0.05rem;
+	margin-right: 0.05rem;
+}
+
+button {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+button:hover {
+	transition: ease 0.2s;
+	background-color: hsla(0, 0%, 0%, 0.05);
+}
+
+.footer {
+	color: hsla(0, 0%, 50%, 0.555);
+	padding-top: 1.5rem;
+	text-align: center;
+}
+
+.msg-ghost {
+	color: hsla(0, 0%, 50%, 0.555);
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid hsla(0, 0%, 50%, 0.2);
+	margin-top: 0.5rem;
+}
+
+
+#upload-modal {
+	text-align: center;
+	font-size: 1.1rem;
+	border-radius: 0.5rem;
+	padding: 0.8rem;
+	outline: 1px solid hsla(0, 0%, 0%, 0.2);
+}
+
+#upload-modal a {
+	color: black;
+}
+
+#upload-modal i {
+	font-size: 2.2rem;
+}
+
+#small-text {
+	color: hsla(0, 0%, 31%, 0.74);
+}
